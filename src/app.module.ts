@@ -3,8 +3,10 @@ import { DevtoolsModule } from '@nestjs/devtools-integration'
 import { UsersModule } from './users/users.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { LoggerModule } from 'nestjs-pino'
-import { AuthModule } from './auth/auth.module';
-import { ProductsModule } from './products/products.module';
+import { AuthModule } from './auth/auth.module'
+import { ProductsModule } from './products/products.module'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { join } from 'path'
 
 @Module({
   imports: [
@@ -32,6 +34,9 @@ import { ProductsModule } from './products/products.module';
         }
       },
       inject: [ConfigService],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
     UsersModule,
     AuthModule,

@@ -37,7 +37,7 @@ export class ProductsService {
             id: productId,
           },
         })),
-        imageExist: await this.imageExists(productId),
+        imageExists: await this.imageExists(productId),
       }
     } catch (err) {
       throw new NotFoundException(`Product with id ${productId} not found`)

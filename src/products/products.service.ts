@@ -4,6 +4,7 @@ import { CreateProductDto } from './dto/create-product.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import { join } from 'path'
 import { PRODUCT_IMAGES } from './product-images'
+import { Prisma } from '@prisma/client'
 
 @Injectable()
 export class ProductsService {
@@ -42,6 +43,13 @@ export class ProductsService {
     } catch (err) {
       throw new NotFoundException(`Product with id ${productId} not found`)
     }
+  }
+
+  async update(productId: string, data: Prisma.ProductUpdateInput) {
+    await this.prismaService.product.update({
+      where: { id: productId },
+      data,
+    })
   }
 
   private async imageExists(productId: string) {
